@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OmniRetarget × RoboMoCap · 组会分享精简稿</title><style>
+:root { color-scheme: light; --ink:#202b3b; --muted:#64748b; --blue:#2861aa; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:26px; }
+body { margin:0; background:#f3f5f8; color:var(--ink); font:16px/1.85 Inter,"Noto Sans CJK SC","Microsoft YaHei",sans-serif; }
+.layout { display:grid; grid-template-columns:240px minmax(0,960px); gap:38px; max-width:1286px; margin:auto; padding:36px 24px 80px; }
+aside { position:sticky; top:28px; align-self:start; max-height:calc(100vh - 55px); overflow:auto; font-size:13px; line-height:1.55; }
+.nav-title { margin:0 0 14px; font-weight:700; color:#334155; }
+.toc ul { list-style:none; padding:0; margin:0; }
+.toc > ul > li { margin:15px 0; }
+.toc ul ul { padding-left:12px; border-left:1px solid #d5deea; margin:7px 0; }
+.toc ul ul li { margin:8px 0; }
+.toc a { color:#4b5f78; text-decoration:none; }
+.toc a:hover { color:var(--blue); }
+main { min-width:0; background:white; padding:48px 46px; border:1px solid #e2e7ee; border-radius:8px; box-shadow:0 4px 22px #263b5810; }
+.draft { color:#69778a; font-size:13px; margin:0 0 9px; }
+h1 { color:#1b304d; font-size:32px; line-height:1.3; margin:0 0 18px; font-weight:750; }
+h2 { font-size:26px; line-height:1.5; margin:55px 0 22px; padding-top:21px; border-top:1px solid #dce4ee; }
+h3 { font-size:22px; line-height:1.5; margin:33px 0 17px; }
+h4 { font-size:18px; line-height:1.6; margin:25px 0 12px; }
+.heading-number { color:var(--blue); }
+p { margin:13px 0 18px; overflow-wrap:anywhere; }
+strong { font-weight:700; color:#1b2a40; }
+a { color:#235c9e; text-underline-offset:3px; }
+.project-links { display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin:0 0 22px; font-size:14px; }
+.project-links a { display:inline-block; padding:5px 11px; border-radius:4px; border:1px solid #ccdaeb; background:#f4f8fd; text-decoration:none; }
+.project-links a:hover { background:#e7f0fb; text-decoration:underline; }
+blockquote { margin:24px 0; padding:17px 22px; border-left:4px solid; border-radius:3px; }
+blockquote p:last-child { margin-bottom:3px; }
+blockquote p:first-child { margin-top:0; }
+.callout-label { margin-bottom:7px; }
+.summary { background:#eef8f0; border-color:#3e9b65; }
+.meeting { padding:0; background:transparent; border:0; box-shadow:none; }
+.meeting-intro, .paper-section { padding:38px 46px; background:#fff; border:1px solid #dce4ee; border-radius:8px; }
+.meeting-intro blockquote { margin-bottom:0; }
+.paper-section { --accent:#426eaa; --tint:#edf4fd; margin-top:36px; border-top:5px solid var(--accent); }
+.robo-section { --accent:#237a66; --tint:#eaf7f2; }
+.comparison-section { --accent:#596980; --tint:#f0f3f7; }
+.paper-section h2 { margin:0 0 12px; padding:0; border:0; font-size:28px; }
+.paper-section h2 + p { color:var(--muted); margin:0 0 20px; font-size:14px; }
+.paper-section h3:first-of-type { padding:9px 14px; margin:22px 0 12px; border-left:4px solid var(--accent); border-radius:4px; background:var(--tint); }
+.paper-section h3:first-of-type + figure { margin-top:14px; }
+.paper-section .heading-number { color:var(--accent); }
+.concept { background:#f3f0fb; border-color:#8b6cbd; }
+.explanation { background:#fff0ef; border-color:#c66d68; }
+.reflection { background:#fff7e9; border-color:#cb973f; }
+.table-scroll { overflow-x:auto; margin:22px 0; }
+.table-scroll table { margin:0; }
+table { width:100%; border-collapse:collapse; table-layout:fixed; margin:22px 0; font-size:14px; line-height:1.75; }
+th { background:#eaf0f6; text-align:center; font-weight:700; color:#253a55; }
+th,td { border:1px solid #ccd6e2; padding:11px 12px; overflow-wrap:anywhere; vertical-align:middle; }
+td { text-align:left; }
+table:has(th:nth-child(4)) { font-size:13.5px; }
+td:first-child:has(> math:only-child) { text-align:center; }
+figure { margin:24px 0 12px; width:100%; }
+figure img { display:block; width:100%; height:auto; cursor:zoom-in; border:1px solid #e4e8ee; border-radius:4px; background:white; }
+figure.narrow img { width:330px; max-width:100%; margin:auto; }
+figure.medium img { width:540px; max-width:100%; margin:auto; }
+figure + p { font-size:14px; line-height:1.8; color:#4a5b70; margin-top:10px; }
+math { font-family:"STIX Two Math","Noto Sans Math",math; font-size:1.02em; }
+.display-formula { text-align:center; overflow-x:auto; max-width:100%; padding:20px 10px; margin:22px 0; background:#f8fafc; border:1px solid #e3e9f1; border-radius:4px; }
+.display-formula math { margin:auto; font-size:1.12em; }
+dialog { border:0; border-radius:8px; padding:16px; width:96vw; max-width:1840px; max-height:96vh; overflow:auto; background:white; }
+dialog::backdrop { background:#0b1426c9; }
+dialog img { display:block; width:auto; max-width:100%; height:auto; margin:auto; }
+dialog button { position:sticky; top:0; float:right; z-index:1; border:1px solid #c8d1df; background:white; border-radius:5px; padding:8px 14px; cursor:pointer; color:#203046; }
+@media(max-width:1000px) { .layout { display:block; max-width:920px; padding:20px 16px 50px; } aside { position:static; max-height:none; margin:0 0 20px; } aside .toc > ul { display:flex; gap:20px; } aside .toc ul ul { display:none; } aside .toc > ul > li { margin:0; } .nav-title { display:none; } main { padding:32px 24px; } }
+@media(max-width:600px) { body { font-size:15px; } .layout { padding:12px 8px 30px; } main { padding:26px 14px; } h1 { font-size:27px; } h2 { font-size:23px; } h3 { font-size:20px; } th,td { padding:8px 5px; } table, table:has(th:nth-child(4)) { font-size:12px; } table:has(th:nth-child(5)) { min-width:640px; } blockquote { padding:13px 14px; } aside .toc > ul { gap:12px; font-size:12px; } }
+@media(max-width:1000px) { .meeting-intro, .paper-section { padding:28px 24px; } }
+@media(max-width:600px) { .meeting-intro, .paper-section { padding:24px 14px; } .paper-section { margin-top:24px; } .paper-section h2 { font-size:23px; } .meeting .project-links { gap:5px; } }
+@media print { body { background:white; } .layout { display:block; padding:0; } aside,.draft { display:none; } main { border:0; box-shadow:none; padding:0; } h2,h3,h4 { break-after:avoid; } figure,table,blockquote { break-inside:avoid; } }
+
+.credits { padding:10px 16px 0; color:var(--muted); font-size:13px; }
+</style></head><body>
+<div class="layout"><aside aria-label="笔记目录"><p class="nav-title">OmniRetarget × RoboMoCap</p><div class="toc">
+<ul>
+<li><a href="#1-omniretarget">1. OmniRetarget｜怎样把动作迁移到机器人</a><ul>
+<li><a href="#11-overview-pipeline-g1">1.1 Overview / Pipeline｜从人体示范到 G1 执行</a></li>
+<li><a href="#12">1.2 手臂短了，怎样还抓得住箱子</a></li>
+<li><a href="#13">1.3 用交互网格保留手、脚和场景的相对位置</a></li>
+<li><a href="#14">1.4 一条示范怎样扩展到不同场景</a></li>
+<li><a href="#15">1.5 实验说明了什么</a></li>
+</ul>
+</li>
+<li><a href="#2-robomocap">2. RoboMoCap｜怎样采到能监督全身运动的示范</a><ul>
+<li><a href="#21-overview-pipeline">2.1 Overview / Pipeline｜从传感器到同步数据</a></li>
+<li><a href="#22">2.2 采了什么，标注从哪里来</a></li>
+<li><a href="#23-90">2.3 看哪里和往哪里走可以相差 90°</a></li>
+<li><a href="#24">2.4 三项基准分别在测什么</a></li>
+</ul>
+</li>
+<li><a href="#3">3. 放在一起看｜数据、参考、执行怎么验收</a></li>
+</ul>
+</div>
+</aside>
+<main class="meeting"><header class="meeting-intro"><h1 id="_1">从人体示范到人形机器人动作</h1>
+<p class="project-links"><a href="https://omniretarget.github.io/">OmniRetarget 官方项目主页 ↗</a>　·　<a href="https://bitrobot-foundation.github.io/robomocap/">RoboMoCap 官方项目主页 ↗</a></p>
+<blockquote class="summary">
+<p class="callout-label"><strong>Overview｜从人的示范到机器人的执行</strong></p>
+<p><strong>采集人体示范 → 生成机器人参考 → 训练跟踪策略 → 真机执行</strong></p>
+<p><strong>OmniRetarget</strong> 从已有示范出发，重点是生成保留交互的机器人参考，再用 RL 训练跟踪。<strong>RoboMoCap</strong> 从采集出发，重点是把第一人称影像、全身动捕和物体轨迹对齐，也用自己的数据评估了 OmniRetarget 的重定向结果。</p>
+</blockquote>
+</header><section class="paper-section omni-section"><h2 id="1-omniretarget"><span class="heading-number">1. </span>OmniRetarget｜怎样把动作迁移到机器人</h2>
+<p><em>Yang 等 · arXiv:2509.26633v3</em></p>
+<h3 id="11-overview-pipeline-g1"><span class="heading-number">1.1 </span>Overview / Pipeline｜从人体示范到 G1 执行</h3>
+<figure class="paper-figure"><img alt="从人体示范到重定向、增强、RL 训练和部署" src="assets/omniretarget-fig-02-pipeline.png" tabindex="0" role="button" title="点击放大原图"/></figure>
+<p><strong>原图 Fig. 2。</strong> 从左往右看：输入人体动作和场景几何，用交互网格求解机器人的运动学参考，可选地改变物体或地形后重新求解。最后在仿真中用 RL 训练跟踪策略，再部署到 G1。</p>
+<h3 id="12"><span class="heading-number">1.2 </span>手臂短了，怎样还抓得住箱子</h3>
+<figure class="paper-figure"><img alt="不同重定向方法的接触与穿透示例" src="assets/omniretarget-fig-07-baseline-artifacts.png" tabindex="0" role="button" title="点击放大原图"/></figure>
+<p><strong>原图 Fig. 7。</strong> 看手和箱壁的位置。即使机器人姿态和人的示范相似，身体比例不同也可能使手穿进箱子或脱离箱壁。重定向时要同时考虑身体与场景的关系。</p>
+<h3 id="13"><span class="heading-number">1.3 </span>用交互网格保留手、脚和场景的相对位置</h3>
+<figure class="paper-figure"><img alt="人体和机器人的交互网格" src="assets/omniretarget-fig-09-mesh.png" tabindex="0" role="button" title="点击放大原图"/></figure>
+<p><strong>原图 Fig. 9。</strong> 人体关键点、物体表面点和地形点组成同一个网格。手与箱面之间有邻接关系，优化时就能衡量两者的相对位置是否改变。</p>
+<div class="display-formula"><math data-latex="L(p_i)=p_i-\sum_{j\in\mathcal N(i)}w_{ij}p_j" xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>L</mi><mo stretchy="false">&#x00028;</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><msub><mi>p</mi><mi>i</mi></msub><mo>&#x02212;</mo><munder><mo>&#x02211;</mo><mrow><mi>j</mi><mo>&#x02208;</mo><mi mathvariant="script">N</mi><mo stretchy="false">&#x00028;</mo><mi>i</mi><mo stretchy="false">&#x00029;</mo></mrow></munder><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>p</mi><mi>j</mi></msub></mrow></math></div>
+<p><math data-latex="p_i" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow></math> 是网格顶点，<math data-latex="\mathcal N(i)" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi mathvariant="script">N</mi><mo stretchy="false">&#x00028;</mo><mi>i</mi><mo stretchy="false">&#x00029;</mo></mrow></math> 是它的邻居，<math data-latex="w_{ij}" xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></math> 是归一化邻居权重。<strong>一个点相对邻居中心的偏移</strong>描述局部交互关系。求解机器人构型时尽量保持这类偏移，并约束穿透、关节范围、速度和支撑脚位置。手与箱子的接触主要由网格目标和避碰约束维持。</p>
+<h3 id="14"><span class="heading-number">1.4 </span>一条示范怎样扩展到不同场景</h3>
+<figure class="paper-figure"><img alt="改变物体位姿、尺寸和地形高度后的参考和真机实例" src="assets/omniretarget-fig-04-augmentation.png" tabindex="0" role="button" title="点击放大原图"/></figure>
+<p><strong>原图 Fig. 4。</strong> 改变箱子初始位姿、尺寸或台阶高度后，在新几何条件下重新求解。例如，同一攀爬示范生成 0.56、0.70、0.84 m 三种高度的参考。</p>
+<h3 id="15"><span class="heading-number">1.5 </span>实验说明了什么</h3>
+<p>在 39 条有挑战性的动作上比较参考生成方法，下游采用相同的 RL 超参数。下表为论文 <strong>Table II</strong> 的仿真结果摘录。</p>
+<div class="table-scroll" tabindex="0" aria-label="数据表，可横向滚动"><table>
+<thead>
+<tr>
+<th>任务</th>
+<th style="text-align: right;">OmniRetarget</th>
+<th style="text-align: right;">该组成功率最高的基线</th>
+<th style="text-align: right;">差值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物体交互</td>
+<td style="text-align: right;"><strong>82.20%</strong></td>
+<td style="text-align: right;">PHC 71.28%</td>
+<td style="text-align: right;">+10.92 个百分点</td>
+</tr>
+<tr>
+<td>地形交互</td>
+<td style="text-align: right;"><strong>94.73%</strong></td>
+<td style="text-align: right;">GMR 78.94%</td>
+<td style="text-align: right;">+15.79 个百分点</td>
+</tr>
+<tr>
+<td>纯运动</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">Unitree LAFAN1 100%</td>
+<td style="text-align: right;">持平</td>
+</tr>
+</tbody>
+</table></div>
+<p>物体交互里，PHC 和 OmniRetarget 的接触保持均值都是 0.96，最大穿透深度指标从 5.11 cm 降到 1.34 cm。接触分数要和穿透一起看。真机另有搬运、攀爬和约 30 秒连续任务展示，表中百分比来自<strong>下游仿真</strong>。</p>
+</section><section class="paper-section robo-section"><h2 id="2-robomocap"><span class="heading-number">2. </span>RoboMoCap｜怎样采到能监督全身运动的示范</h2>
+<p><em>Deshmukh 等 · arXiv:2611.10994v1</em></p>
+<h3 id="21-overview-pipeline"><span class="heading-number">2.1 </span>Overview / Pipeline｜从传感器到同步数据</h3>
+<figure class="paper-figure"><img alt="采集、对齐、融合和标注产物" src="https://arxiv.org/html/2611.10994v1/figures/over.png" loading="lazy" referrerpolicy="no-referrer" tabindex="0" role="button" title="点击放大原图"/></figure>
+<p><strong><a href="https://arxiv.org/pdf/2611.10994v1#page=8">原图 Fig. 3。</a></strong> 从左往右看：先用可穿戴相机、外部相机和光学动捕记录同一次示范，再对齐时钟和坐标，最后输出同步的相机观测、全身动作、手部姿态和物体轨迹。</p>
+<h3 id="22"><span class="heading-number">2.2 </span>采了什么，标注从哪里来</h3>
+<p><strong>200+ 小时，14 人，8 类、291 种预设动作协议</strong>。移动基本动作、姿态与动态、移动操作合计约占 81%。采集在 7 × 7 m 动捕棚内，覆盖横走、后退、转向、搬运和跨障等动作条件。动作协议数按论文 Table 2。</p>
+<p>6 路头戴、2 路腕戴和 1 路外部相机提供 30 Hz 视频。NOKOV 以 120 Hz 跟踪人体反光标记和带标记的刚体。头戴陀螺仪和光学系统都能感知转头，论文用这段共同的运动做时间对齐。</p>
+<ul>
+<li><strong>身体和脚</strong>：光学标记约束 SMPL-X 拟合，鞋底标记可用于推导接触标签。</li>
+<li><strong>手指</strong>：多视角视觉估计 MANO，再与跟踪到的腕位姿融合。</li>
+<li><strong>带标记的刚体</strong>：光学跟踪输出物体位姿，可与同步的人体动作一起分析。</li>
+</ul>
+<h3 id="23-90"><span class="heading-number">2.3 </span>看哪里和往哪里走可以相差 90°</h3>
+<figure class="paper-figure"><img alt="骨盆速度与转向、步宽及头朝向与行进方向差异" src="https://arxiv.org/html/2611.10994v1/robomocap_analysis.png" loading="lazy" referrerpolicy="no-referrer" tabindex="0" role="button" title="点击放大原图"/></figure>
+<p><strong><a href="https://arxiv.org/pdf/2611.10994v1#page=10">原图 Fig. 4C。</a></strong> 头朝向与行进方向的夹角中位数，前走为 <strong>9.5°</strong>，侧走或后退为 <strong>92.4°</strong>。第一人称视角中脚往往不可见，头的观测也难以唯一确定下肢动作。这就是配对光学监督的价值。</p>
+<h3 id="24"><span class="heading-number">2.4 </span>三项基准分别在测什么</h3>
+<div class="table-scroll" tabindex="0" aria-label="数据表，可横向滚动"><table>
+<thead>
+<tr>
+<th>基准</th>
+<th>看哪个结果</th>
+<th>如何解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全身重建（Table 3）</td>
+<td>EgoAllo 局部 MPJPE <strong>80.8 mm</strong>。AGRoL 世界坐标误差 <strong>95.4 mm</strong>、序列对齐后 <strong>64.9 mm</strong></td>
+<td>在各方法的输入配置下，局部人体姿态与整体移动轨迹各有优势</td>
+</tr>
+<tr>
+<td>足接触和落脚（Table 6）</td>
+<td>EgoAllo 接触 F1 <strong>90.5%</strong>，脚印误差 <strong>85.1 mm</strong>，步间位移误差 <strong>154.1 mm</strong></td>
+<td>着地时机和位置精度要分别验收</td>
+</tr>
+<tr>
+<td>G1 重定向（Table 4–5）</td>
+<td>OmniRetarget 足接触 F1 <strong>87.7%</strong>、打滑率 <strong>2.2%</strong>，片段通过 <strong>53.6%</strong>。PHC 自碰撞帧 <strong>1.1%</strong>，片段通过 <strong>79.6%</strong></td>
+<td>保真、接触和几何通过率衡量不同问题</td>
+</tr>
+</tbody>
+</table></div>
+<p>足接触与 G1 重定向两项评估使用 <strong>543 个测试会话，约 18 小时</strong>。G1 的片段通过要求同时满足根相对误差、最大穿地和自碰撞阈值，属于<strong>离线轨迹评估</strong>。</p>
+</section><section class="paper-section comparison-section"><h2 id="3"><span class="heading-number">3. </span>放在一起看｜数据、参考、执行怎么验收</h2>
+<div class="table-scroll" tabindex="0" aria-label="数据表，可横向滚动"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>重点检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人体示范</td>
+<td>影像与动捕同期，分清光学测量、人体模型拟合和视觉估计</td>
+</tr>
+<tr>
+<td>机器人参考</td>
+<td>分别看落脚误差、接触保持、打滑、穿透与自碰撞</td>
+</tr>
+<tr>
+<td>策略执行</td>
+<td>用统一训练条件做仿真对照，再单独报告真机表现</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>两篇最直接的交点</strong>：RoboMoCap 在大量统一输入上评估了 OmniRetarget。它的接触与位置保真表现好，但部分轨迹卡在几何阈值上。OmniRetarget 自身论文则用另一组动作和下游 RL 衡量仿真执行。两组数据和判定口径不同，组会可把它们放到上表的不同阶段来读。</p></section><footer class="credits"><p>OmniRetarget Fig. 2、4、7、9 截取自 <a href="https://arxiv.org/abs/2509.26633v3">Yang 等的论文（arXiv:2509.26633v3）</a>，采用 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>。RoboMoCap Fig. 3 和 Fig. 4 由 <a href="https://arxiv.org/html/2611.10994v1">arXiv 原文</a>提供。</p></footer></main></div>
+<dialog id="image-dialog" aria-label="原图放大"><button type="button">关闭</button><img alt=""></dialog>
+<script>
+const imageDialog = document.querySelector('#image-dialog');
+const enlargedImage = imageDialog.querySelector('img');
+for (const figureImage of document.querySelectorAll('figure img')) {
+  const showImage = () => {
+    enlargedImage.src = figureImage.src;
+    enlargedImage.alt = figureImage.alt;
+    imageDialog.showModal();
+  };
+  figureImage.addEventListener('click', showImage);
+  figureImage.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      showImage();
+    }
+  });
+}
+imageDialog.querySelector('button').addEventListener('click', () => imageDialog.close());
+imageDialog.addEventListener('click', event => { if (event.target === imageDialog) imageDialog.close(); });
+</script></body></html>
